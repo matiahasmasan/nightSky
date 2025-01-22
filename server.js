@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Serve static files (HTML, CSS, JS)
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/docs")));
 
 // Your proxy route
 const API_ENDPOINT = "https://api.astronomyapi.com/api/v2/studio/star-chart";
