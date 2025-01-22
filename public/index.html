@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NightSky - Your Personal Sky Map Generator</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen">
+    <!-- Stars script -->
+    <script src="createStars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Navigation -->
+    <nav
+      class="fixed w-full bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <span class="text-xl font-bold gradient-text">NightSky</span>
+          </div>
+
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-4">
+            <a
+              href="index.html"
+              class="text-gray-300 hover:text-white px-3 py-2"
+              >Home</a
+            >
+            <a
+              href="skymap.html"
+              class="text-gray-300 hover:text-white px-3 py-2"
+              >Sky Map</a
+            >
+            <a
+              href="https://github.com/matiahasmasan"
+              target="_blank"
+              class="text-gray-300 hover:text-white px-3 py-2"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button
+              id="burger-button"
+              type="button"
+              class="text-gray-300 hover:text-white p-2"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+              onclick="toggleMobileMenu()"
+            >
+              <span class="sr-only">Open main menu</span>
+              <!-- Burger -->
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-gray-900 bg-opacity-95">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a
+            href="index.html"
+            class="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
+            >Home</a
+          >
+          <a
+            href="skymap.html"
+            class="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
+            >Sky Map</a
+          >
+          <a
+            href="https://github.com/matiahasmasan"
+            class="text-gray-300 hover:text-white block px-3 py-2 rounded-md"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+    <script src="mobileMenu.js"></script>
+
+    <!-- Hero Section -->
+    <div class="pt-24 pb-8 px-4">
+      <div class="max-w-7xl mx-auto text-center hero-text">
+        <h1 class="text-5xl font-bold mb-6 gradient-text">
+          Explore the Night Sky
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Generate personalized sky maps for your loved one based on your
+          location and time.
+        </p>
+        <a href="skymap.html">
+          <button
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300"
+          >
+            Generate Sky Map
+          </button></a
+        >
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div
+      class="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+    >
+      <div class="feature-card rounded-xl p-6 text-center">
+        <img
+          src="images/telescope_icon_white.png"
+          alt="Real-time Sky Map"
+          class="mx-auto mb-4 rounded-lg"
+        />
+        <h3 class="text-xl font-bold mb-2">Real-time Sky Map</h3>
+        <p class="text-gray-300">
+          View the current positions of stars, planets, and constellations.
+        </p>
+      </div>
+
+      <div class="feature-card rounded-xl p-6 text-center">
+        <img
+          src="images/map_icon.png"
+          alt="Location Based"
+          class="mx-auto mb-4 rounded-lg"
+        />
+        <h3 class="text-xl font-bold mb-2">Location Based</h3>
+        <p class="text-gray-300">
+          Customized sky maps based on your exact location on Earth.
+        </p>
+      </div>
+
+      <div class="feature-card rounded-xl p-6 text-center">
+        <img
+          src="images/clock_icon.png"
+          alt="Time Machine"
+          class="mx-auto mb-4 rounded-lg"
+        />
+        <h3 class="text-xl font-bold mb-2">Time Machine</h3>
+        <p class="text-gray-300">
+          View the sky at any date and time, past or future.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4 gradient-text">
+          Here is an example
+        </h2>
+        <a href="skymap.html" class="text-xl text-gray-300 mb-8"
+          >Get one yourself!</a
+        >
+        <img src="images/example.png" class="example mt-8" />
+      </div>
+    </div>
+    <!-- About Section -->
+    <div class="max-w-7xl mx-auto px-4 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4 gradient-text">How It Works</h2>
+        <p class="text-xl text-gray-300">
+          Discover the technology behind our accurate sky maps
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="feature-card rounded-xl p-8">
+          <h3 class="text-2xl font-bold mb-4 gradient-text">
+            Technical Details
+          </h3>
+          <div class="space-y-4 text-gray-300">
+            <p>
+              NightSky utilizes
+              <a href="https://astronomyapi.com/" class="text-gray-500"
+                >AstronoMyApy</a
+              >
+              and
+              <a
+                href="https://www.openstreetmap.org/#map=7/45.996/24.981"
+                class="text-gray-500"
+                >Nominatim Openstreetmap</a
+              >
+              APIs to generate accurate celestial maps with the correct
+              location.
+            </p>
+            <p>
+              Nominatim OpenStreetMap has an editing API for fetching and saving
+              raw geodata from/to the OpenStreetMap database
+            </p>
+            <p>
+              AstronoMyApy files were provided on the
+              <a
+                href="https://github.com/ofrohn/d3-celestial/"
+                class="text-gray-500"
+                >d3-celestial plugin</a
+              >
+              under
+              <a
+                href="https://opensource.org/license/BSD-3-Clause"
+                class="text-gray-500"
+              >
+                3-Clause</a
+              >
+              processed with the
+              <a
+                href="https://dieghernan.github.io/celestial_data/#ref-pebesma2018"
+                class="text-gray-500"
+                >R package sf</a
+              >
+              to ensure its validity:
+            </p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+              <li>
+                This project provides several datasets in GeoJSON and GeoPackage
+                format of celestial objects as of J2000 epoch.
+              </li>
+              <li>
+                Date is provided on
+                <a href="https://epsg.io/4326" class="text-gray-500"
+                  >WGS84 - World Geodetic System 1984 (EPSG:4326)</a
+                >.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card rounded-xl p-8">
+          <h3 class="text-2xl font-bold mb-4 gradient-text">
+            Map Generation Process
+          </h3>
+          <div class="space-y-4 text-gray-300">
+            <p>Each sky map is generated through a sophisticated process:</p>
+            <ol class="list-decimal list-inside space-y-2 ml-4">
+              <li>Location data is converted to precise coordinates</li>
+              <li>Date and time are adjusted for the local timezone</li>
+              <li>
+                Stellar positions are calculated using advanced algorithms
+              </li>
+              <li>Constellation patterns are overlaid for easy reference</li>
+              <li>Final image is rendered with high-resolution graphics</li>
+            </ol>
+            <p class="mt-4">
+              Our maps update in real-time and can be generated for any location
+              on Earth, at any point in time - past, present, or future.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-gray-400 text-sm">
+          Data sources: astronomyapi.com, Nominatim OpenStreetMap, J2000 epoch
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 mt-16">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-400">
+        <p>&copy; 2025 NightSky.</p>
+        <a href="https://github.com/matiahasmasan"
+          >https://github.com/matiahasmasan</a
+        >
+      </div>
+    </footer>
+
+    <script src="nightsky.js"></script>
+  </body>
+</html>
