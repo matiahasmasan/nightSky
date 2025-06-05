@@ -1,2 +1,1 @@
-Web App that generates night sky images, using AstronomyAPI.
-Need to install npm to run it.
+NightSky is a web app that generated dynamically sky maps using AstromonyAPI and nominatimAPI. This system include just the client interfaces, built with html, css, Tailwind CSS and javaScript for the front-end, Node.js for the back-end
