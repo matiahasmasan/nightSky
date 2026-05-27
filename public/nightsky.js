@@ -43,7 +43,55 @@ function handleImageUpload(file) {
   reader.readAsDataURL(file);
 }
 
-function validateAndUpdateDetails() {
+const LOADING_MESSAGES = [
+  "Finding your location...",
+  "Charting the stars...",
+  "Aligning constellations...",
+  "Painting your night sky...",
+  "Almost there...",
+];
+
+let loadingIntervalId = null;
+
+function showLoading() {
+  const loader = document.querySelector(".loading");
+  const status = document.querySelector(".loading-status");
+  const button = document.querySelector(".search button");
+  const searchBlock = document.querySelector(".search");
+
+  if (button) button.disabled = true;
+  if (searchBlock) searchBlock.style.opacity = "0.55";
+  loader.style.display = "flex";
+
+  let i = 0;
+  status.textContent = LOADING_MESSAGES[0];
+  status.style.opacity = "1";
+
+  loadingIntervalId = setInterval(() => {
+    i = (i + 1) % LOADING_MESSAGES.length;
+    status.style.opacity = "0";
+    setTimeout(() => {
+      status.textContent = LOADING_MESSAGES[i];
+      status.style.opacity = "1";
+    }, 250);
+  }, 2800);
+}
+
+function hideLoading() {
+  if (loadingIntervalId !== null) {
+    clearInterval(loadingIntervalId);
+    loadingIntervalId = null;
+  }
+  const loader = document.querySelector(".loading");
+  const button = document.querySelector(".search button");
+  const searchBlock = document.querySelector(".search");
+
+  if (loader) loader.style.display = "none";
+  if (button) button.disabled = false;
+  if (searchBlock) searchBlock.style.opacity = "1";
+}
+
+async function validateAndUpdateDetails() {
   const myName = document.querySelector(".myName").value;
   const yourName = document.querySelector(".yourName").value;
   const city = document.querySelector(".input").value;
@@ -57,7 +105,12 @@ function validateAndUpdateDetails() {
     errorElement.style.display = "none";
   }
 
-  updateDetails(myName, yourName, city, date);
+  showLoading();
+  try {
+    await updateDetails(myName, yourName, city, date);
+  } finally {
+    hideLoading();
+  }
 }
 
 async function updateDetails(myName, yourName, city, date) {
@@ -153,9 +206,14 @@ async function updateDetails(myName, yourName, city, date) {
     }
   }
 
-  document.querySelector(".night").style.display = "block";
+  const nightEl = document.querySelector(".night");
+  nightEl.classList.add("is-visible");
   document.querySelector(".error").style.display = "none";
   document.querySelector(".search").style.display = "none";
+
+  requestAnimationFrame(() => {
+    nightEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 // Initialize image upload functionality when the page loads
